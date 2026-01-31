@@ -1,15 +1,24 @@
-cd paperless
-docker compose up -d
+@echo off
+setlocal EnableDelayedExpansion
 
-echo Waiting for the service to become healthy...
+cd paperless
+docker compose -p paperless_daniel up -d
+
+echo Waiting for Paperless to start... (This might take 2-5 minutes initially.)
+set attempt=1
 :wait
-for /f "tokens=1,2" %%a in ('docker compose ps --format json') do (
-    echo %%b | findstr /i "healthy" >nul
+for /f "usebackq delims=" %%J in (`docker compose -p paperless_daniel ps --format json`) do (
+    set "JSON=%%J"
+    echo %JSON% | findstr /i "healthy" >nul
     if not errorlevel 1 goto open_browser
-    echo Service not healthy yet, waiting...
+    set /a attempt+=1
+    echo Still waiting... [Attempt %attempt% of 50]
     timeout /t 5 >nul
     goto wait
 )
 
 :open_browser
+echo Paperless is up and running. Opening in browser...
 start http://127.0.0.1:8000
+timeout /t 2 >nul
+exit
