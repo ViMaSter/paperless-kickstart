@@ -12,4 +12,4 @@
 
 # Restoring data
 
-2. Paste this entire directory and run start.bat to see if all your data is still available
+1. Paste this entire directory and run start.bat to see if all your data is still available
