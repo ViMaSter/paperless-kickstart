@@ -7,9 +7,11 @@
 
 # Backing up data
 
-1. Copy this entire directory
+1. Create a password-protected .zip, .rar or .7z file of this directory
+2. Move it to a cloud storage provider of your choice
 
 
 # Restoring data
 
-1. Paste this entire directory and run start.bat to see if all your data is still available
+1. Download and extract the protected archive of a backup
+2. Run start.bat to see if all your data is still available
