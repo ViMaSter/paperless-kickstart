@@ -7,8 +7,9 @@ docker compose -p paperless_daniel up -d
 echo Waiting for Paperless to start... (This might take 2-5 minutes initially.)
 set attempt=1
 :wait
-for /f "usebackq delims=" %%J in (`docker compose -p paperless_daniel ps --format json`) do (
+for /f "usebackq delims=" %%J in (`docker ps --filter "name=paperless_daniel-webserver-1" --format json`) do (
     set "JSON=%%J"
+	echo %JSON%
     echo %JSON% | findstr /i "healthy" >nul
     if not errorlevel 1 goto open_browser
     set /a attempt+=1
